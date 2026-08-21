@@ -14,7 +14,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <meta name="color-scheme" content="dark" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -24,7 +23,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         {children}
-        <Toaster position="bottom-center" toastOptions={{ style: { background: '#111', color: '#fff' } }} />
+        <Toaster
+          position="bottom-center"
+          toastOptions={{
+            style: {
+              background: 'hsl(var(--card))',
+              color: 'hsl(var(--card-foreground))',
+              border: '1px solid hsl(var(--border))',
+            },
+          }}
+        />
       </body>
     </html>
   )
