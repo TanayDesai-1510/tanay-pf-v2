@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 96%;
+    --card: 240 6% 7%;
+    --card-foreground: 0 0% 96%;
+    --popover: 240 6% 7%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 0 0% 96%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 240 5% 12%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 240 5% 12%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 240 5% 14%;
+    --accent-foreground: 0 0% 96%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 6% 16%;
+    --input: 240 6% 24%;
+    --ring: 0 0% 96%;
+    --faint: 240 4% 44%;
+    --radius: 0.9rem;
+    --font-sans: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+    --font-serif: 'Instrument Serif', Georgia, serif;
+    color-scheme: dark;
+  }
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+    overflow-x: hidden;
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+}
