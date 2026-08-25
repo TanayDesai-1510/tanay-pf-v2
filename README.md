@@ -1,46 +1,42 @@
 # Tanay Desai — Portfolio
 
-Next.js (App Router) + Tailwind + shadcn/ui + Framer Motion. Plain black theme, fully responsive, reduced-motion safe.
+Next.js 14 (App Router) + Tailwind. Dark/light via `prefers-color-scheme`, fully responsive, reduced-motion safe.
 
 ## Run
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
+npm run dev      # http://localhost:3003
 npm run build    # production build
-npm start        # serve the build
+npm start        # serve the build on port 3003
 ```
 
 ## Edit content
 
 Everything lives in `lib/data.ts`. Change your projects, experience, education,
-skills, and links there. No need to touch the components.
+skills, nav links, and profile links there. No need to touch the components.
 
-## Add your photo (beside the contact form)
+## Replace the photo
 
-1. Drop your image in `public/`, for example `public/tanay.jpg`.
-2. In `lib/data.ts`, set `photo: '/tanay.jpg'`.
-That is it. The contact section shows the placeholder until `photo` is set,
-then swaps in your image automatically.
+Put a WebP in `public/` (for example `public/profile.webp`) and set `photo` in
+`lib/data.ts` to that path.
 
 ## Replace the resume
 
 Put your resume PDF in `public/` and set `resume` in `lib/data.ts` to its path,
-for example `/TanayDesaiResume.pdf`.
+for example `/Resume_Tanay_Desai.pdf`.
 
 ## Structure
 
+- `app/layout.tsx` owns fonts, metadata, nav, and footer.
 - `app/page.tsx` composes the sections.
-- `components/` holds each section (nav, hero, projects, experience, education, skills, contact, footer).
-- `components/ui/` holds the shadcn primitives (button, input, textarea, card). Add more with `npx shadcn@latest add <name>`.
-- `components/reveal.tsx` is the Framer Motion scroll-reveal helper.
+- `components/` holds each section and the mobile nav.
 - Theme tokens are in `app/globals.css`.
+- Site URL, Open Graph, and JSON-LD live in `lib/site.ts`. Set `NEXT_PUBLIC_SITE_URL` in production if you use a custom domain.
 
 ## Fonts
 
-Instrument Sans and Instrument Serif load from Google Fonts via a link in
-`app/layout.tsx`. If you prefer self-hosted optimized fonts, switch to
-`next/font/google`; it works locally since you have network access.
+Instrument Sans (400/600) and Instrument Serif italic load through `next/font/google` in `app/layout.tsx`.
 
 ## Deploy
 

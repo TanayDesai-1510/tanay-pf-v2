@@ -2,38 +2,37 @@
 
 import React from 'react'
 import { Resend } from 'resend'
-import { validateString, getErrorMessage } from '@/lib/utils'
+import { contactFieldErrors, parseContactForm } from '@/lib/contact'
 import { profile } from '@/lib/data'
 import ContactFormEmail from '@/email/contact-form-email'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const SEND_FAILED = 'Unable to send. Check your connection and try again.'
 
 export const sendEmail = async (formData: FormData) => {
-  const senderEmail = formData.get('senderEmail')
-  const message = formData.get('message')
-
-  if (!validateString(senderEmail, 500)) {
-    return { error: 'Invalid sender email' }
-  }
-  if (!validateString(message, 5000)) {
-    return { error: 'Invalid message' }
+  const fields = parseContactForm(formData)
+  const fieldErrors = contactFieldErrors(fields)
+  if (Object.keys(fieldErrors).length > 0) {
+    return { fieldErrors }
   }
 
-  let data
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) return { error: SEND_FAILED }
+
   try {
-    data = await resend.emails.send({
+    const resend = new Resend(apiKey)
+    const data = await resend.emails.send({
       from: 'Portfolio <onboarding@resend.dev>',
       to: profile.email,
       subject: 'Message from portfolio contact form',
-      reply_to: senderEmail as string,
+      reply_to: fields.email,
       react: React.createElement(ContactFormEmail, {
-        message: message as string,
-        senderEmail: senderEmail as string,
+        senderName: fields.name,
+        senderEmail: fields.email,
+        message: fields.message,
       }),
     })
-  } catch (error: unknown) {
-    return { error: getErrorMessage(error) }
+    return { data }
+  } catch {
+    return { error: SEND_FAILED }
   }
-
-  return { data }
 }
