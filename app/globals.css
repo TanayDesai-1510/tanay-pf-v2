@@ -8,25 +8,34 @@
     --foreground: 240 10% 4%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 4%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 4%;
     --primary: 240 6% 10%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 240 5% 96%;
-    --secondary-foreground: 240 6% 10%;
     --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
-    --accent: 240 5% 94%;
-    --accent-foreground: 240 6% 10%;
+    --muted-foreground: 240 4% 42%;
     --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 98%;
     --border: 240 6% 90%;
     --input: 240 6% 85%;
     --ring: 240 6% 10%;
-    --faint: 240 4% 46%;
+    --faint: 240 4% 44%;
     --radius: 0.9rem;
-    --font-sans: 'Instrument Sans', system-ui, -apple-system, sans-serif;
-    --font-serif: 'Instrument Serif', Georgia, serif;
+    --site-pad: clamp(1.125rem, 5vw, 1.5rem);
+    --section-y: clamp(2.4rem, 6vh, 3.8rem);
+    --hero-y: clamp(4rem, 12vh, 8rem);
+    --hero-pb: clamp(2.5rem, 6vh, 4.5rem);
+    --section-lg-pt: clamp(2.8rem, 7vh, 4.5rem);
+    --section-lg-pb: clamp(3.5rem, 9vh, 5.5rem);
+    --nav-h: 3.5rem;
+    --scroll-mt: 4.5rem;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --duration-ui: 160ms;
+    --shadow-border:
+      0 0 0 1px hsl(0 0% 0% / 0.06),
+      0 1px 2px -1px hsl(0 0% 0% / 0.06),
+      0 2px 4px 0 hsl(0 0% 0% / 0.04);
+    --shadow-border-hover:
+      0 0 0 1px hsl(0 0% 0% / 0.08),
+      0 1px 2px -1px hsl(0 0% 0% / 0.08),
+      0 2px 4px 0 hsl(0 0% 0% / 0.06);
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
@@ -35,22 +44,17 @@
       --foreground: 0 0% 96%;
       --card: 240 6% 7%;
       --card-foreground: 0 0% 96%;
-      --popover: 240 6% 7%;
-      --popover-foreground: 0 0% 96%;
       --primary: 0 0% 96%;
       --primary-foreground: 0 0% 4%;
-      --secondary: 240 5% 12%;
-      --secondary-foreground: 0 0% 96%;
       --muted: 240 5% 12%;
-      --muted-foreground: 240 5% 65%;
-      --accent: 240 5% 14%;
-      --accent-foreground: 0 0% 96%;
+      --muted-foreground: 240 5% 74%;
       --destructive: 0 62% 45%;
-      --destructive-foreground: 0 0% 98%;
       --border: 240 6% 16%;
       --input: 240 6% 24%;
       --ring: 0 0% 96%;
-      --faint: 240 4% 44%;
+      --faint: 240 4% 62%;
+      --shadow-border: 0 0 0 1px hsl(0 0% 100% / 0.08);
+      --shadow-border-hover: 0 0 0 1px hsl(0 0% 100% / 0.13);
       color-scheme: dark;
     }
   }
@@ -60,7 +64,82 @@
     @apply bg-background text-foreground font-sans antialiased;
     line-height: 1.55;
     letter-spacing: -0.01em;
-    overflow-x: hidden;
   }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+}
+
+@layer components {
+  .image-ring {
+    outline: 1px solid hsl(0 0% 0% / 0.1);
+    outline-offset: -1px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .image-ring {
+      outline-color: hsl(0 0% 100% / 0.1);
+    }
+  }
+
+  .card-surface {
+    overflow: hidden;
+    border-radius: 1rem;
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    box-shadow: var(--shadow-border);
+  }
+  .card-interactive {
+    height: 100%;
+    transition-property: transform, box-shadow;
+    transition-duration: var(--duration-ui);
+    transition-timing-function: var(--ease-out);
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .group:hover .card-interactive {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-border-hover);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-interactive {
+      transition: none;
+    }
+  }
+
+  .spinner-fast {
+    animation: spin 0.55s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .spinner-fast {
+      animation: none;
+    }
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-enter {
+    animation: hero-enter 200ms var(--ease-out) both;
+  }
+  .hero-enter-actions {
+    animation: hero-enter 200ms var(--ease-out) 100ms both;
+  }
+  .menu-enter {
+    animation: hero-enter 160ms var(--ease-out) both;
+  }
+}
+
+[data-sonner-toaster] {
+  --normal-bg: hsl(var(--card));
+  --normal-text: hsl(var(--card-foreground));
+  --normal-border: hsl(var(--border));
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
