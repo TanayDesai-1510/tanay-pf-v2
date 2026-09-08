@@ -14,7 +14,7 @@ export function Contact() {
     >
       <div className="grid grid-cols-1 items-start gap-9 sm:grid-cols-[1fr_280px]">
         <ContactForm />
-        <div className="mx-auto w-full max-w-[280px]">
+        <div className="mx-auto w-full max-w-[280px] sm:-translate-y-3">
           <ProfilePhoto />
         </div>
       </div>

@@ -87,7 +87,7 @@ export function ContactForm() {
           ref={messageRef}
           name="message"
           maxLength={5000}
-          placeholder="I’d like to talk about QuotaForge…"
+          placeholder="I’d like to talk about…"
         />
       </Field>
       <Button type="submit" disabled={pending} aria-busy={pending} className="mt-1 self-start">

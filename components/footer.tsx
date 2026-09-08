@@ -8,8 +8,8 @@ export function Footer() {
   return (
     <footer>
       <Container>
-        <div className="flex flex-wrap justify-between gap-2.5 border-t border-border py-8 pb-12 text-meta text-faint">
-          <span>
+        <div className="flex flex-wrap items-center justify-between gap-2.5 border-t border-border py-8 pb-12 text-meta text-faint">
+          <span className="whitespace-nowrap text-base">
             © {new Date().getFullYear()} {profile.name}
           </span>
           <div className="flex gap-1">
@@ -18,9 +18,9 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               variant="footer"
-              className="gap-1.5"
+              className="gap-1.5 text-base"
             >
-              <Icon icon={GithubIcon} size={15} />
+              <Icon icon={GithubIcon} size={17} />
               GitHub
             </TextLink>
             <TextLink
@@ -28,9 +28,9 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               variant="footer"
-              className="gap-1.5"
+              className="gap-1.5 text-base"
             >
-              <Icon icon={Linkedin01Icon} size={15} />
+              <Icon icon={Linkedin01Icon} size={17} />
               LinkedIn
             </TextLink>
           </div>

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { ArrowUpRight01Icon } from '@hugeicons/core-free-icons'
 import { Icon } from './icon'
 import { Card, CardBody, CardDescription, CardMedia } from './ui/card'
@@ -9,7 +10,7 @@ import type { Project } from '@/lib/data'
 
 export function ProjectCard({ project: p }: { project: Project }) {
   const card = (
-    <Card interactive={Boolean(p.href)}>
+    <Card interactive>
       <CardMedia>
         <Image
           src={p.image}
@@ -25,7 +26,7 @@ export function ProjectCard({ project: p }: { project: Project }) {
           <Heading as="h3" size="title">
             {p.name}
           </Heading>
-          {p.href ? <Icon icon={ArrowUpRight01Icon} className="text-faint" /> : null}
+          <Icon icon={ArrowUpRight01Icon} className="text-faint" />
         </div>
         <CardDescription className="mb-3">{p.blurb}</CardDescription>
         <div className="flex flex-wrap gap-1.5">
@@ -37,17 +38,9 @@ export function ProjectCard({ project: p }: { project: Project }) {
     </Card>
   )
 
-  if (!p.href) return card
-
   return (
-    <a
-      href={p.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`${p.name} on GitHub`}
-      className="group block h-full"
-    >
+    <Link href={`/projects/${p.id}`} aria-label={`View ${p.name} project details`} className="group block h-full">
       {card}
-    </a>
+    </Link>
   )
 }
