@@ -20,6 +20,10 @@ export function Hero() {
         <span className="font-serif italic font-normal">fast, reliable systems</span>{' '}
         and the interfaces that live on top of them.
       </Heading>
+      <p className="hero-enter mt-4 max-w-[48ch] text-pretty text-xl text-muted-foreground">
+        This is where I share the projects I&apos;ve built, the work I&apos;ve done, and the
+        skills behind them, and where I keep track of how I&apos;m growing as a developer.
+      </p>
       <div className="hero-enter-actions mt-8 flex flex-wrap items-center gap-3">
         <a
           href={profile.resume}

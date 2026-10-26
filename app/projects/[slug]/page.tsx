@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
-import type { ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft01Icon, ArrowUpRight01Icon } from '@hugeicons/core-free-icons'
 import { projects } from '@/lib/data'
 import { Icon } from '@/components/icon'
+import { ProjectCard } from '@/components/project-card'
 import { Badge } from '@/components/ui/badge'
 import { Container } from '@/components/ui/container'
+import { DetailSection } from '@/components/ui/detail-section'
 import { Heading } from '@/components/ui/heading'
 import { Kicker } from '@/components/ui/kicker'
 import { buttonVariants } from '@/components/ui/button'
@@ -36,30 +37,6 @@ export function generateMetadata({ params }: ProjectPageProps): Metadata {
     title: project.name,
     description: project.blurb,
   }
-}
-
-function DetailSection({
-  label,
-  title,
-  children,
-}: {
-  label: string
-  title: string
-  children: ReactNode
-}) {
-  return (
-    <section className="border-t border-border py-section">
-      <div className="grid gap-5 sm:grid-cols-[minmax(0,180px)_1fr] sm:gap-8">
-        <Kicker>{label}</Kicker>
-        <div>
-          <Heading as="h2" size="lg" className="mb-3">
-            {title}
-          </Heading>
-          {children}
-        </div>
-      </div>
-    </section>
-  )
 }
 
 export default function ProjectPage({ params }: ProjectPageProps) {
@@ -189,6 +166,16 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               </li>
             ))}
           </ul>
+        </DetailSection>
+
+        <DetailSection label="More projects" title="Keep exploring">
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {projects
+              .filter((other) => other.id !== project.id)
+              .map((other) => (
+                <ProjectCard key={other.id} project={other} />
+              ))}
+          </div>
         </DetailSection>
       </Container>
     </main>
