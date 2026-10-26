@@ -8,6 +8,7 @@ export const profile = {
 }
 
 export const navLinks = [
+  { href: '/about', label: 'About' },
   { href: '/#work', label: 'Work' },
   { href: '/#experience', label: 'Experience' },
   { href: '/#contact', label: 'Contact' },
