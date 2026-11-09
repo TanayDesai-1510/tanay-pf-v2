@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CopyEmail } from '@/components/copy-email'
+import { InsideTheBuild } from '@/components/inside-the-build'
 import { ProfilePhoto } from '@/components/profile-photo'
 import { Projects } from '@/components/projects'
 import { buttonVariants } from '@/components/ui/button'
@@ -195,6 +196,8 @@ export default function AboutPage() {
       </Container>
 
       <Projects />
+
+      <InsideTheBuild />
 
       <Container>
         <DetailSection label="Looking ahead" title={"Where I'm headed"}>
